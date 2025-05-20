@@ -86,6 +86,21 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
+	al_init_primitives_addon();
+	al_clear_to_color(al_map_rgb(50, 25, 100));
+
+	//ground
+	al_draw_filled_ellipse(width / 2, height, 750, 135, al_map_rgb(0, 150, 125));
+
+	//cat body
+	al_draw_filled_ellipse(width / 1.55, height / 1.8, 75, 150, al_map_rgb(0, 0, 0));
+
+	//cat head
+	float cx = width / 2.0;
+	float cy = height / 2.0;
+	al_draw_filled_triangle(cx - 300, cy - 180, cx + 300, cy - 180, cx, cy, al_map_rgb(0, 0, 0));
+
+
 	al_flip_display();
 	al_rest(20.0);
 	al_destroy_display(display);
