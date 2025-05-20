@@ -69,7 +69,7 @@ void draw_random_filled_triangles(ALLEGRO_COLOR color, const int SCREEN_W, const
 //@param height
 void getPoints(float points[], int size, int width, int height);
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
 	using namespace std;
 	int width = 800;
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
 	//timer, gets current time and declared duration
 	time_t startTime = time(nullptr);
-	time_t duration = 20;
+	int duration = 20;
 
 	ALLEGRO_DISPLAY *display = NULL;
 
