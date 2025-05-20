@@ -15,28 +15,59 @@ ALLEGRO_COLOR makeColor();
 void draw_random_pixel(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly colored and sized hollow ellipse on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly sized and color filled ellipse on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_filled_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly colored and sized line on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_lines(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly colored and sized hollow rectangle on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_rectangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly sized and color filled rectangle on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_filled_rectangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly colored and sized hollow circle on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_circles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly sized and color filled cicle on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_filled_circles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 //draws a randomly sized and color filled triangle on a portion of the screen
+//@param color randomly generated color from makeColor() function
+//@param SCREEN_W the screen's width, an int
+//@param SCREEN_H the screen's height, an int
 void draw_random_filled_triangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
+
+//randomly generating four points within the screen, to calculate a spline's trajectory
+//@param points[]
+//@param size
+//@param width
+//@param height
+void getPoints(float points[], int size, int width, int height);
 
 int main(int argc, char* argv[]) {
 	int width = 800;
@@ -70,30 +101,93 @@ ALLEGRO_COLOR makeColor() {
 	return (al_map_rgb(red, green, blue));
 }
 
-void draw_random_pixel(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_pixel(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = rand() % (SCREEN_W - 450);
+	int y = 10 + rand() % (SCREEN_H - 400);
 
+	al_put_pixel(x, y, color);
 }
-void draw_random_ellipse(ALLEGRO_COLOR color, const int width, const int height) {
 
+void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 200 - rand() % (SCREEN_W);
+	int y = 300 + rand() % (SCREEN_H);
+	if (x < 1) x = 100;
+	if (y < 1) y = 100;
+	int rx = rand() % (x - 101);
+	int ry = rand() % (y - 101);
+	if (rx < 1) rx = 1;
+	if (ry < 1) rx = 1;
+	float thickness = rand() % 5;
+
+	al_draw_ellipse(x, y, rx, ry, color, thickness);
 }
-void draw_random_filled_ellipse(ALLEGRO_COLOR color, const int width, const int height) {
 
+void draw_random_filled_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 600 + rand() % (SCREEN_W - 600);
+	int y = 300 - rand() % (SCREEN_H - 300);
+	int rx = rand() % 100;
+	int ry = rand() % 100;
+	if (rx < 1) rx = 1;
+	if (ry < 1) ry = 1;
+
+	al_draw_filled_ellipse(x, y, rx, ry, color);
 }
-void draw_random_lines(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_lines(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 400 + rand() % (SCREEN_W - 400);
+	int y = 100 - rand() % (SCREEN_H - 100);
+	int x1 = 400 + rand() % (SCREEN_W - 400);
+	int y1 = 100 - rand() % (SCREEN_H - 100);
+	float thickness = rand() % 5;
 
+	al_draw_line(x, y, x1, y1, color, thickness);
 }
-void draw_random_rectangles(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_rectangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 400 + rand() % (SCREEN_W - 400);
+	int y = 250 - rand() % (SCREEN_H - 400);
+	int x1 = 400 + rand() % (SCREEN_W - 400);
+	int y1 = 250 - rand() % (SCREEN_H - 400);
+	float thickness = rand() % 5;
 
+	al_draw_rectangle(x, y, x1, y1, color, thickness);
 }
-void draw_random_filled_rectangles(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_filled_rectangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 200 - rand() % (SCREEN_W - 200);
+	int y = 250 - rand() % (SCREEN_H - 400);
+	int x1 = 200 - rand() % (SCREEN_W - 200);
+	int y1 = 250 - rand() % (SCREEN_H - 400);
 
+	al_draw_filled_rectangle(x, y, x1, y1, color);
 }
-void draw_random_circles(ALLEGRO_COLOR color, const int width, const int height) {
 
+void draw_random_circles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = rand() % (SCREEN_W);
+	int y = rand() % (SCREEN_H);
+	int radius = rand() % 30;
+	float thickness = rand() % 5;
+
+	al_draw_circle(x, y, radius, color, thickness);
 }
-void draw_random_filled_circles(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_filled_circles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 200 + rand() % (SCREEN_W - 450);
+	int y = 300 + rand() % (SCREEN_H);
+	int radius = rand() % 30;
 
+	al_draw_filled_circle(x, y, radius, color);
 }
-void draw_random_filled_triangles(ALLEGRO_COLOR color, const int width, const int height) {
+void draw_random_filled_triangles(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x1 = 350 - rand() % (SCREEN_W - 500);
+	int y1 = 150 + rand() % (SCREEN_H - 300);
+	int x2 = 350 - rand() % (SCREEN_W - 500);
+	int y2 = 150 + rand() % (SCREEN_H - 300);
+	int x3 = 350 - rand() % (SCREEN_W - 500);
+	int y3 = 150 + rand() % (SCREEN_H - 300);
 
+	al_draw_filled_triangle(x1, y1, x2, y2, x3, y3, color);
+}
+
+void getPoints(float points[], int size, int width, int height) {
+	for (int i = 0; i < size; i += 2) {
+		points[i] = rand() % width;
+		points[i + 1] = rand() % height;
+	}
 }
