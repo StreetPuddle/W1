@@ -70,10 +70,17 @@ void draw_random_filled_triangles(ALLEGRO_COLOR color, const int SCREEN_W, const
 void getPoints(float points[], int size, int width, int height);
 
 int main(int argc, char* argv[]) {
+
+	using namespace std;
 	int width = 800;
 	int height = 600;
 	srand(time(NULL));
-	ALLEGRO_DISPLAY* display = NULL;
+
+	//timer, gets current time and declared duration
+	time_t startTime = time(nullptr);
+	time_t duration = 20;
+
+	ALLEGRO_DISPLAY *display = NULL;
 
 	if (!al_init()) {
 		fprintf(stderr, "Failed to initialize allegro!\n");
@@ -89,45 +96,52 @@ int main(int argc, char* argv[]) {
 	al_init_primitives_addon();
 	al_clear_to_color(al_map_rgb(50, 25, 100));
 
-	//ground
-	al_draw_filled_ellipse(width / 2, height, 750, 135, al_map_rgb(0, 150, 125));
+	//while loop that lasts 20 seconds
+	while (time(nullptr) - startTime < duration) {
 
-	//cat body
-	al_draw_filled_ellipse(width / 1.55, height / 1.8, 75, 150, al_map_rgb(0, 0, 0));
+		//drawing stars :D
+		draw_random_pixel(makeColor(), 800, 600);
 
-	//cat head
-	float cx = width / 2.0;
-	float cy = height / 2.0;
-	al_draw_filled_triangle(cx - 300, cy - 180, cx + 300, cy - 180, cx, cy, al_map_rgb(0, 0, 0));
+		//ground
+		al_draw_filled_ellipse(width / 2, height, 750, 135, al_map_rgb(0, 150, 125));
 
-	//cat eyes
-	al_draw_filled_ellipse(width / 2.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
-	al_draw_filled_ellipse(width / 1.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
-	al_draw_filled_ellipse(width / 2.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
-	al_draw_filled_ellipse(width / 1.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
-	al_draw_line(width / 2.6, height / 3.0, width / 2.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
-	al_draw_line(width / 1.6, height / 3.0, width / 1.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
+		//cat body
+		al_draw_filled_ellipse(width / 1.55, height / 1.8, 75, 150, al_map_rgb(0, 0, 0));
 
-	//cat nose
-	al_draw_filled_triangle(cx - 15, cy - 75, cx + 15, cy - 75, cx, cy - 65, al_map_rgb(255, 150, 170));
+		//cat head
+		float cx = width / 2.0;
+		float cy = height / 2.0;
+		al_draw_filled_triangle(cx - 300, cy - 180, cx + 300, cy - 180, cx, cy, al_map_rgb(0, 0, 0));
 
-	//cat ears
-	al_draw_filled_triangle(cx - 200, cy - 180, cx - 60, cy - 180, cx - 150, cy - 280, al_map_rgb(0, 0, 0));
-	al_draw_filled_triangle(cx + 250, cy - 180, cx + 100, cy - 180, cx + 200, cy - 280, al_map_rgb(0, 0, 0));
+		//cat eyes
+		al_draw_filled_ellipse(width / 2.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
+		al_draw_filled_ellipse(width / 1.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
+		al_draw_filled_ellipse(width / 2.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
+		al_draw_filled_ellipse(width / 1.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
+		al_draw_line(width / 2.6, height / 3.0, width / 2.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
+		al_draw_line(width / 1.6, height / 3.0, width / 1.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
 
-	//cat legs
-	al_draw_filled_rectangle(width / 1.5, height / 1.23, width / 2.0, height / 1.3, al_map_rgb(0, 0, 0));
-	al_draw_filled_circle(width / 1.95, height / 1.28, 20, al_map_rgb(0, 0, 0));
-	al_draw_line(width / 2.2, height / 1.24, width / 1.65, height / 2.5, al_map_rgb(0, 0, 0), 20);
-	al_draw_filled_circle(width / 2.2, height / 1.28, 20, al_map_rgb(0, 0, 0));
+		//cat nose
+		al_draw_filled_triangle(cx - 15, cy - 75, cx + 15, cy - 75, cx, cy - 65, al_map_rgb(255, 150, 170));
 
-	//cat tail
-	float points[8] = { 550, 455, 650, 400, 500, 700, 780, 500 };
-	al_draw_spline(points, al_map_rgb(0, 0, 0), 20);
-	al_draw_filled_circle(780, 500, 10, al_map_rgb(0, 0, 0));
+		//cat ears
+		al_draw_filled_triangle(cx - 200, cy - 180, cx - 60, cy - 180, cx - 150, cy - 280, al_map_rgb(0, 0, 0));
+		al_draw_filled_triangle(cx + 250, cy - 180, cx + 100, cy - 180, cx + 200, cy - 280, al_map_rgb(0, 0, 0));
 
-	al_flip_display();
-	al_rest(20.0);
+		//cat legs
+		al_draw_filled_rectangle(width / 1.5, height / 1.23, width / 2.0, height / 1.3, al_map_rgb(0, 0, 0));
+		al_draw_filled_circle(width / 1.95, height / 1.28, 20, al_map_rgb(0, 0, 0));
+		al_draw_line(width / 2.2, height / 1.24, width / 1.65, height / 2.5, al_map_rgb(0, 0, 0), 20);
+		al_draw_filled_circle(width / 2.2, height / 1.28, 20, al_map_rgb(0, 0, 0));
+
+		//cat tail
+		float points[8] = { 550, 455, 650, 400, 500, 700, 780, 500 };
+		al_draw_spline(points, al_map_rgb(0, 0, 0), 20);
+		al_draw_filled_circle(780, 500, 10, al_map_rgb(0, 0, 0));
+
+		al_flip_display();
+	}
+
 	al_destroy_display(display);
 
 	return 0;
@@ -142,8 +156,8 @@ ALLEGRO_COLOR makeColor() {
 }
 
 void draw_random_pixel(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x = rand() % (SCREEN_W - 450);
-	int y = 10 + rand() % (SCREEN_H - 400);
+	int x = rand() % (SCREEN_W);
+	int y = rand() % (SCREEN_H);
 
 	al_put_pixel(x, y, color);
 }
