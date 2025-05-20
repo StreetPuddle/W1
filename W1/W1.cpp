@@ -100,6 +100,26 @@ int main(int argc, char* argv[]) {
 	float cy = height / 2.0;
 	al_draw_filled_triangle(cx - 300, cy - 180, cx + 300, cy - 180, cx, cy, al_map_rgb(0, 0, 0));
 
+	//cat eyes
+	al_draw_filled_ellipse(width / 2.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
+	al_draw_filled_ellipse(width / 1.6, height / 3.75, 75, 20, al_map_rgb(255, 255, 255));
+	al_draw_filled_ellipse(width / 2.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
+	al_draw_filled_ellipse(width / 1.6, height / 3.75, 10, 20, al_map_rgb(255, 200, 0));
+	al_draw_line(width / 2.6, height / 3.0, width / 2.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
+	al_draw_line(width / 1.6, height / 3.0, width / 1.6, height / 4.25, al_map_rgb(0, 0, 0), 2);
+
+	//cat nose
+	al_draw_filled_triangle(cx - 15, cy - 75, cx + 15, cy - 75, cx, cy - 65, al_map_rgb(255, 150, 170));
+
+	//cat ears
+	al_draw_filled_triangle(cx - 200, cy - 180, cx - 60, cy - 180, cx - 150, cy - 280, al_map_rgb(0, 0, 0));
+	al_draw_filled_triangle(cx + 250, cy - 180, cx + 100, cy - 180, cx + 200, cy - 280, al_map_rgb(0, 0, 0));
+
+	//cat legs
+	al_draw_filled_rectangle(width / 1.5, height / 1.23, width / 2.0, height / 1.3, al_map_rgb(0, 0, 0));
+	al_draw_filled_circle(width / 1.95, height / 1.28, 20, al_map_rgb(0, 0, 0));
+	al_draw_line(width / 2.2, height / 1.24, width / 1.65, height / 2.5, al_map_rgb(0, 0, 0), 20);
+	al_draw_filled_circle(width / 2.2, height / 1.28, 20, al_map_rgb(0, 0, 0));
 
 	al_flip_display();
 	al_rest(20.0);
