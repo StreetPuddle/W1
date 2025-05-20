@@ -121,6 +121,11 @@ int main(int argc, char* argv[]) {
 	al_draw_line(width / 2.2, height / 1.24, width / 1.65, height / 2.5, al_map_rgb(0, 0, 0), 20);
 	al_draw_filled_circle(width / 2.2, height / 1.28, 20, al_map_rgb(0, 0, 0));
 
+	//cat tail
+	float points[8] = { 550, 455, 650, 400, 500, 700, 780, 500 };
+	al_draw_spline(points, al_map_rgb(0, 0, 0), 20);
+	al_draw_filled_circle(780, 500, 10, al_map_rgb(0, 0, 0));
+
 	al_flip_display();
 	al_rest(20.0);
 	al_destroy_display(display);
